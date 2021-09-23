@@ -52,13 +52,13 @@ RSpec.describe Api::V1::SurvivorsController, type: :controller do
     it 'create new survivor' do
       post :create, params: { survivor: params }
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
     end
 
     it 'create new survivor' do
       post :create, params: { survivor: params }
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
       expect(assigns(:survivor)).to be_persisted
     end
 

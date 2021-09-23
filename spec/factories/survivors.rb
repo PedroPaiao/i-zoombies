@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :survivor do
+  factory :survivor, class: Survivor do
     name { 'Pedro Augusto' }
     gender { :male }
   end
