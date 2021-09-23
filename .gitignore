@@ -27,3 +27,6 @@
 /config/master.key
 
 /config/database.yml
+
+.ruby-version
+.ruby-gemset
