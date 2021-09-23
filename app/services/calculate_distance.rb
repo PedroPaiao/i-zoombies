@@ -5,7 +5,8 @@ class CalculateDistance < ::BaseService
   steps :fetch_variables,
         :fetch_search_by_service,
         :run_service,
-        :verify_errors
+        :verify_errors,
+        :serialize_response
 
   def call
     process_steps
@@ -37,6 +38,20 @@ class CalculateDistance < ::BaseService
   def verify_errors
     return fail(@service_response.error) unless @service_response.success?
 
-    @closest_survivor = @service_response.result
+    @service_result = @service_response.result
+  end
+
+  def serialize_response
+    options = { each_serializer: Closest::LocationSerializer }
+    survivors = ActiveModelSerializers::SerializableResource.new(
+      @service_result[:closest_array],
+      options
+    )
+
+    @closest_survivor = {
+      distance: @service_result[:distance],
+      comparation_type: @search_by,
+      closest: survivors
+    }
   end
 end

@@ -17,7 +17,7 @@ class Api::V1::LocationsController < Api::ApiController
     service = CalculateDistance.call(survivor: @survivor, search_by: location_search_params)
 
     if service.success?
-      render_success(serialize_resource(service.result, SurvivorSerializer))
+      render_success(service.result)
     else
       render_unprocessable_entity_error(service.error)
     end
