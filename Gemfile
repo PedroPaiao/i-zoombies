@@ -20,6 +20,10 @@ gem 'active_model_serializers', '~> 0.10.12'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 # Enumerated attributes with I18n and ActiveRecord/Mongoid/MongoMapper support
 gem 'enumerize', '~> 2.4'
+# Create JSON structures via a Builder-style DSL
+gem 'jbuilder', '~> 2.7'
+# The fastest JSON parser and object serializer.
+gem 'oj'
 
 # Pattern gems
 # General purpose service object abstraction
