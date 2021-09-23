@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :survivor do
-    name { "MyString" }
-    gender { 1 }
+    name { 'Pedro Augusto' }
+    gender { :male }
   end
 end
