@@ -15,6 +15,13 @@ ActiveRecord::Schema.define(version: 2021_09_23_060448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "latitudes", force: :cascade do |t|
+    t.bigint "location_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_latitudes_on_location_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.float "latitude"
     t.float "longitude"
@@ -22,6 +29,13 @@ ActiveRecord::Schema.define(version: 2021_09_23_060448) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survivor_id"], name: "index_locations_on_survivor_id"
+  end
+
+  create_table "longitudes", force: :cascade do |t|
+    t.bigint "location_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_longitudes_on_location_id"
   end
 
   create_table "survivors", force: :cascade do |t|

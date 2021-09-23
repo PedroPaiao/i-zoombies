@@ -36,7 +36,7 @@ class Api::V1::SurvivorsController < Api::ApiController
   end
 
   def survivor_params
-    params.require(:survivor).permit(:name, :gender)
+    params.require(:survivor).permit(:name, :gender, location_attributes: {})
   end
 
   def handle_success_response(response, status = nil)

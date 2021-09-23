@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :survivors
+      resources :survivors do
+        put :location, on: :member
+      end
     end
   end
 end
