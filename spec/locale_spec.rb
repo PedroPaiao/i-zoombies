@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe do
+  after(:context) do
+    I18n.locale = I18n.default_locale
+  end
+
   context 'Test locales' do
     it 'Is default locale' do
       expect(I18n.t('hello')).to eq('Hello world!')
