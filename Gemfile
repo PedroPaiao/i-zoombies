@@ -50,6 +50,13 @@ group :development, :test do
   gem 'database_cleaner-active_record', '~> 2.0', '>= 2.0.1'
   # Extracting `assigns` and `assert_template` from ActionDispatch.
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
+  # Pry is a runtime developer console and IRB alternative with powerful introspection capabilities.
+  gem 'pry', '~> 0.14.1'
+  # Use Pry as your rails console
+  gem 'pry-rails', '~> 0.3.9'
+  # Great Ruby debugging companion: pretty print Ruby objects to visualize their structure.
+  # Supports custom object formatting via plugins
+  gem 'awesome_print', '~> 1.9', '>= 1.9.2'
 end
 
 # Development helpers
