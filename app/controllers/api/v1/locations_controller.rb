@@ -3,12 +3,7 @@ class Api::V1::LocationsController < Api::ApiController
 
   def update
     @location = @survivor.location
-
-    if @location.blank?
-      @location = Location.new(location_params.merge(survivor: @survivor))
-    else
-      @location.assign_attributes(location_params)
-    end
+    @location.assign_attributes(location_params)
 
     handle_success_response(@location.save)
   end
