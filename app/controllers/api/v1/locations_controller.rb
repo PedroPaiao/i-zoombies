@@ -13,6 +13,10 @@ class Api::V1::LocationsController < Api::ApiController
     handle_success_response(@location.save)
   end
 
+  def fetch_closest_survivor
+    render_success
+  end
+
   private
 
   def set_survivor
@@ -23,6 +27,10 @@ class Api::V1::LocationsController < Api::ApiController
 
   def location_params
     params.require(:location).permit(:latitude, :longitude)
+  end
+
+  def location_search_params
+    params.require(:search_by)
   end
 
   def handle_success_response(response, status = nil)

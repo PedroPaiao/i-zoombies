@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :survivors do
         put :location, on: :member, controller: :locations, action: :update
+        get :location, on: :member, controller: :locations, action: :fetch_closest_survivor
       end
     end
   end
