@@ -1,18 +1,17 @@
-class Api::V1::SurvivorsController < Api::ApiController
+class Api::V1::LocationsController < Api::ApiController
   before_action :set_survivor
 
   def update
-    location = @survivor.location.assign_attributes(location_params)
-
-    handle_success_response(location)
+    @location.assign_attributes(location_params)
+    handle_success_response(@location.save)
   end
 
   private
 
   def set_survivor
-    @survivor = Survivor.find_by(id: params[:id])
+    @location = Survivor.find_by(id: params[:id])&.location
 
-    render_not_found_error unless @survivor.present?
+    render_not_found_error unless @location.present?
   end
 
   def location_params
@@ -21,9 +20,9 @@ class Api::V1::SurvivorsController < Api::ApiController
 
   def handle_success_response(response, status = nil)
     if response
-      render_success(serialize_resource(@survivor, SurvivorSerializer), status)
+      render_success(serialize_resource(@location, LocationSerializer), status)
     else
-      render_unprocessable_entity_error(@survivor.errors.messages)
+      render_unprocessable_entity_error(@location.errors.messages)
     end
   end
 end

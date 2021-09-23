@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :survivors do
-        put :location, on: :member
+        put :location, on: :member, controller: :locations, action: :update
       end
     end
   end
