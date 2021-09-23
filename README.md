@@ -3,7 +3,7 @@
 Rest API that stores survivors of a zombie apocalypse and allows
 to find the survivor closest to your location.</p>
 
-<div id="technologies">
+<div align='center' id="technologies">
   <img src="https://img.shields.io/static/v1?label=Framework&message=Ruby-on-rails&color=7159c1&style=for-the-badge&logo=Ruby.png"/>
   <img src="https://img.shields.io/static/v1?label=Database&message=Postgresql&color=7159c1&style=for-the-badge&logo=PostgreSQL.png"/>
 </div>
