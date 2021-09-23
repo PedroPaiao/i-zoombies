@@ -39,7 +39,7 @@ jobs:
           bundler-cache: true
       - name: Installing Bundler:2.2.15
         run: gem install bundler:2.2.15
-      - name: Setup da aplicação Rails com as dependencias
+      - name: Setup Rails Application
         env:
           RAILS_ENV: test
         run: |
