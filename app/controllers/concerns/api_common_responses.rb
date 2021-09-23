@@ -1,12 +1,12 @@
 module ApiCommonResponses
   extend ActiveSupport::Concern
 
-  def render_success(data = {})
-    render json: data, status: :ok
+  def render_success(data = {}, status = :ok)
+    render json: data, status: status
   end
 
-  def render_created
-    render json: { status: 201 }, status: :created
+  def render_created(data = {})
+    render json: data, status: :created
   end
 
   def render_unprocessable_entity_error(resource = nil)
