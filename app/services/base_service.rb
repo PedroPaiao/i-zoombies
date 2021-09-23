@@ -5,8 +5,8 @@ class BaseService < BusinessProcess::Base
   def treat_exception
     begin
       yield
-    rescue Exception => e
-      Rails.logger.error("From #{self.class.to_s}: #{e.message}")
+    rescue StandardError => e
+      Rails.logger.error("From #{self.class}: #{e.message}")
       Rails.logger.error e.backtrace.first(16).join("\n\t")
     end
   end
@@ -22,12 +22,11 @@ class BaseService < BusinessProcess::Base
   # This is still the business process gem
   # I just added a stop to it
   def process_steps
-    _result = nil
+    result = nil
     steps.map(&:to_s).each do |step_name|
-      _result = process_step(step_name)
-      return _result if @success == false || stop == true
+      result = process_step(step_name)
+      return result if @success == false || stop == true
     end
-    _result
+    result
   end
-
 end

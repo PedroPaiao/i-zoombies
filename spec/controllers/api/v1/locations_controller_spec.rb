@@ -20,10 +20,18 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
     let!(:survivor) { create(:survivor) }
     let!(:survivors) { create_list(:survivor, 4) }
 
-    it 'should retrive closest survivor by longitude' do
+    it 'should retrive closest survivor on longitude' do
       get :fetch_closest_survivor, params: { id: survivor[:id], search_by: 'longitude' }
 
       expect(response).to have_http_status(200)
     end
+
+    it 'should retrive closest survivor on latitude' do
+      get :fetch_closest_survivor, params: { id: survivor[:id], search_by: 'latitude' }
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'should retrive closest survivor inline'
   end
 end

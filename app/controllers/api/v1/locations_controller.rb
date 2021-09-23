@@ -14,7 +14,13 @@ class Api::V1::LocationsController < Api::ApiController
   end
 
   def fetch_closest_survivor
-    render_success
+    service = CalculateDistance.call(survivor: @survivor, search_by: location_search_params)
+
+    if service.success?
+      render_success
+    else
+      render_unprocessable_entity_error(service.error)
+    end
   end
 
   private
