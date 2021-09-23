@@ -10,6 +10,7 @@ to find the survivor closest to your location.</p>
 
 <h3 id="table" align="center">Table of Contents</h3>
 <p align="center">
+ <a href="https://documenter.getpostman.com/view/17627865/UUxwCUMk">Postman Documentation</a> •
  <a href="#table">Table of Contents</a> •
  <a href="#dependencies">Dependencies</a> • 
  <a href="#technologies">Technologies</a> • 
