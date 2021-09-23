@@ -1,7 +1,7 @@
 class Api::ApiController < ::ApplicationController
   include ApiCommonResponses
 
-  respond_to? :json
+  respond_to :json
 
   protected
 

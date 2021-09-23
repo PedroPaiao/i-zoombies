@@ -24,13 +24,16 @@ gem 'enumerize', '~> 2.4'
 gem 'jbuilder', '~> 2.7'
 # The fastest JSON parser and object serializer.
 gem 'oj'
+# A set of Rails responders to dry up your application
+gem 'responders', '~> 3.0', '>= 3.0.1'
 
 # Pattern gems
 # General purpose service object abstraction
 gem 'business_process', '~> 1.0', '>= 1.0.3'
 # New wave Internationalization support for Ruby.
 gem 'i18n', '~> 1.8', '>= 1.8.10'
-# RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce the community-driven Ruby Style Guide.
+# RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce the community-driven
+# Ruby Style Guide.
 gem 'rubocop', '~> 1.21'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
@@ -38,13 +41,15 @@ gem 'rubocop', '~> 1.21'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # spec-rails is a testing framework for Rails 5+.
   gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
   # factory_bot_rails provides integration between factory_bot and rails 5.0 or newer
   gem 'factory_bot_rails', '~> 6.2'
   # Strategies for cleaning databases using ActiveRecord. Can be used to ensure a clean state for testing.
   gem 'database_cleaner-active_record', '~> 2.0', '>= 2.0.1'
+  # Extracting `assigns` and `assert_template` from ActionDispatch.
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 # Development helpers
@@ -57,9 +62,10 @@ end
 
 # Tests Helper
 group :test do
- # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses, phone numbers, etc.
+  # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses,
+  # phone numbers, etc.
   gem 'faker', '~> 2.15', '>= 2.15.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
