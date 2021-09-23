@@ -1,7 +1,7 @@
 class Survivor < ApplicationRecord
   extend Enumerize
 
-  has_one :location
+  has_one :location, dependent: :delete
 
   validates :gender, :name, presence: true
 
