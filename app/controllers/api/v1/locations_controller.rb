@@ -2,16 +2,23 @@ class Api::V1::LocationsController < Api::ApiController
   before_action :set_survivor
 
   def update
-    @location.assign_attributes(location_params)
+    @location = @survivor.location
+
+    if @location.blank?
+      @location = Location.new(location_params.merge(survivor: @survivor))
+    else
+      @location.assign_attributes(location_params)
+    end
+
     handle_success_response(@location.save)
   end
 
   private
 
   def set_survivor
-    @location = Survivor.find_by(id: params[:id])&.location
+    @survivor = Survivor.find_by(id: params[:id])
 
-    render_not_found_error unless @location.present?
+    render_not_found_error unless @survivor.present?
   end
 
   def location_params

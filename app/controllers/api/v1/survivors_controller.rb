@@ -8,7 +8,7 @@ class Api::V1::SurvivorsController < Api::ApiController
   end
 
   def show
-    render_success(@survivor)
+    handle_success_response(@survivor.persisted?)
   end
 
   def create
