@@ -4,13 +4,12 @@ Rest API that stores survivors of a zombie apocalypse and allows
 to find the survivor closest to your location.</p>
 
 <br id="technologies">
-<img src="https://img.shields.io/static/v1?label=Framework&message=Ruby on rails&color=7159c1&style=for-the-badge&logo=Ruby
+<img src="https://img.shields.io/static/v1?label=Framework&message=Ruby-on-rails&color=7159c1&style=for-the-badge&logo=Ruby
 "/>
 <img src="https://img.shields.io/static/v1?label=Database&message=Postgresql&color=7159c1&style=for-the-badge&logo=PostgreSQL
 "/>
 
 <h3 id="table" align="center">Table of Contents</h3>
-=================
 <p align="center">
  <a href="#table">Table of Contents</a> •
  <a href="#dependencies">Dependencies</a> • 
@@ -22,7 +21,6 @@ to find the survivor closest to your location.</p>
 </p>
 
 <h2 id="dependencies" align="left">Dependencies</h2>
-------------------------
 
  - Ruby v3.0.1
      - If you don't have Ruby installed on your machine, I recommend using [RVM](https://rvm.io/) to install it.
