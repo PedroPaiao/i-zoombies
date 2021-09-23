@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_23_165119) do
+ActiveRecord::Schema.define(version: 2021_09_23_203046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2021_09_23_165119) do
     t.index ["survivor_id"], name: "index_locations_on_survivor_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string "description"
+    t.bigint "whistleblower_survivor_id"
+    t.bigint "reported_survivor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reported_survivor_id"], name: "index_reports_on_reported_survivor_id"
+    t.index ["whistleblower_survivor_id"], name: "index_reports_on_whistleblower_survivor_id"
+  end
+
   create_table "survivors", force: :cascade do |t|
     t.string "name"
     t.integer "gender"
@@ -32,4 +42,6 @@ ActiveRecord::Schema.define(version: 2021_09_23_165119) do
   end
 
   add_foreign_key "locations", "survivors", on_delete: :cascade
+  add_foreign_key "reports", "survivors", column: "reported_survivor_id"
+  add_foreign_key "reports", "survivors", column: "whistleblower_survivor_id"
 end
