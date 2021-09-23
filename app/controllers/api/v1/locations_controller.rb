@@ -13,11 +13,11 @@ class Api::V1::LocationsController < Api::ApiController
     handle_success_response(@location.save)
   end
 
-  def fetch_closest_survivor
+  def retrieve_closest_survivor
     service = CalculateDistance.call(survivor: @survivor, search_by: location_search_params)
 
     if service.success?
-      render_success
+      render_success(serialize_resource(service.result, SurvivorSerializer))
     else
       render_unprocessable_entity_error(service.error)
     end

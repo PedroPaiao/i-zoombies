@@ -25,8 +25,6 @@ class CalculateDistance < ::BaseService
                  'CalculateDistances::Longitude'
                when 'latitude'
                  'CalculateDistances::Latitude'
-               when 'inline'
-                 'CalculateDistances::Inline'
                else
                  fail('Not service found error')
                end
