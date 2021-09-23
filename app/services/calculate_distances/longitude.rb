@@ -62,11 +62,11 @@ class CalculateDistances::Longitude < ::BaseService
 
   def check_closest(distance, location)
     if @result.nil?
-      @result = { closest_array: [location], distance: distance }
-    elsif @result[:distance] > distance
+      @result = { closest_array: [location], distance: distance.abs }
+    elsif (@result[:distance]).abs > distance.abs
       @result[:closest_array] = [location]
-      @result[:distance] = distance
-    elsif @result[:distance] == distance
+      @result[:distance] = distance.abs
+    elsif (@result[:distance]).abs == distance.abs
       @result[:closest_array] << location
     end
   end
