@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :survivors do
         put :location, on: :member, controller: :locations, action: :update
+        get :retrieve_closest_survivor, on: :member, controller: :locations, action: :retrieve_closest_survivor
+
+        post :reports, on: :member, controller: :reports, action: :create
+        get :complaints_to_me, on: :member, controller: :reports, action: :complaints_to_me
+        get :my_complaints, on: :member, controller: :reports, action: :my_complaints
       end
     end
   end

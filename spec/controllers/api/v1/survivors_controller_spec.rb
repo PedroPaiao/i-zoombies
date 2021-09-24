@@ -55,13 +55,6 @@ RSpec.describe Api::V1::SurvivorsController, type: :controller do
       expect(response).to have_http_status(201)
     end
 
-    it 'create new survivor' do
-      post :create, params: { survivor: params }
-
-      expect(response).to have_http_status(201)
-      expect(assigns(:survivor)).to be_persisted
-    end
-
     it 'not create new survivor' do
       params = { name: 'Pedro Augusto' }
       post :create, params: { survivor: params }
@@ -85,20 +78,21 @@ RSpec.describe Api::V1::SurvivorsController, type: :controller do
     end
 
     it 'should not update survivor info' do
+      initial_name = survivor[:name]
       params = { name: '' }
 
       put :update, params: { id: survivor[:id], survivor: params }
       survivor.reload
 
       expect(response).to have_http_status(422)
-      expect(survivor[:name]).to eq('Pedro Augusto')
+      expect(survivor[:name]).to eq(initial_name)
     end
   end
 
   context 'DELETE #destroy' do
     let!(:survivor) { create(:survivor) }
 
-    it 'should update survivor info' do
+    it 'should delete survivor' do
       delete :destroy, params: { id: survivor[:id] }
 
       expect(response).to have_http_status(200)

@@ -4,13 +4,23 @@ class Api::V1::LocationsController < Api::ApiController
   def update
     @location = @survivor.location
 
-    if @location.blank?
-      @location = Location.new(location_params.merge(survivor: @survivor))
-    else
+    if @location.present?
       @location.assign_attributes(location_params)
+    else
+      @location = Location.new(location_params.merge(survivor_id: @survivor[:id]))
     end
 
     handle_success_response(@location.save)
+  end
+
+  def retrieve_closest_survivor
+    service = CalculateDistance.call(survivor: @survivor, search_by: location_search_params)
+
+    if service.success?
+      render_success(service.result)
+    else
+      render_unprocessable_entity_error(service.error)
+    end
   end
 
   private
@@ -23,6 +33,10 @@ class Api::V1::LocationsController < Api::ApiController
 
   def location_params
     params.require(:location).permit(:latitude, :longitude)
+  end
+
+  def location_search_params
+    params.require(:search_by)
   end
 
   def handle_success_response(response, status = nil)
