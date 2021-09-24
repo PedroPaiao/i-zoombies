@@ -56,9 +56,9 @@ class CalculateDistances::Latitude < ::BaseService
       distance = calculate_negative(latitude) if latitude.negative? && @current_latitude.negative?
       distance = 0 if latitude.zero? && @current_latitude.zero?
       distance = calculate_positive(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                  (@current_latitude.positive? || latitude.positive?)
+                                                 (@current_latitude.positive? || latitude.positive?)
       distance = calculate_negative(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                  (@current_latitude.negative? || latitude.negative?)
+                                                 (@current_latitude.negative? || latitude.negative?)
 
       check_closest(distance, location)
     end
