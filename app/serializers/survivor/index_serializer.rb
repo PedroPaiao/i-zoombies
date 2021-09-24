@@ -1,4 +1,4 @@
-class SurvivorSerializer < ActiveModel::Serializer
+class Survivor::IndexSerializer < ActiveModel::Serializer
   attributes :id, :name, :gender, :infected, :current_location
 
   def current_location

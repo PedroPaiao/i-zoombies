@@ -1,4 +1,4 @@
-class ReportSerializer < ActiveModel::Serializer
+class Report::ShowSerializer < ActiveModel::Serializer
   attributes :id, :description, :reported_survivor, :whistleblower_survivor
 
   def reported_survivor
