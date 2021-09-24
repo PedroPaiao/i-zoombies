@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         put :location, on: :member, controller: :locations, action: :update
         get :retrieve_closest_survivor, on: :member, controller: :locations, action: :retrieve_closest_survivor
 
-        post :create, on: :member, controller: :reports, action: :create
+        post :reports, on: :member, controller: :reports, action: :create
       end
     end
   end

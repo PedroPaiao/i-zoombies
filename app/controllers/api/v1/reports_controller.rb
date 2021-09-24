@@ -5,7 +5,7 @@ class Api::V1::ReportsController < Api::ApiController
     report = Report.new(formatted_params)
 
     if report.save
-      render_success
+      render_success(serialize_resource(report, ReportSerializer))
     else
       render_unprocessable_entity_error(report.errors.messages)
     end
