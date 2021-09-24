@@ -11,6 +11,18 @@ class Api::V1::ReportsController < Api::ApiController
     end
   end
 
+  def complaints_to_me
+    @reports = @survivor.reported_reports
+
+    render_success(serialize_resource_list(@reports, ReportSerializer))
+  end
+
+  def my_complaints
+    @reports = @survivor.whistleblower_reports
+
+    render_success(serialize_resource_list(@reports, ReportSerializer))
+  end
+
   private
 
   def set_survivor
