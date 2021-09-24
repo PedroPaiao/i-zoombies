@@ -13,12 +13,18 @@ class Api::V1::ReportsController < Api::ApiController
 
   def complaints_to_me
     @reports = @survivor.reported_reports
+                        .order(created_at: :desc)
+                        .page(params[:page] || 1)
+                        .per(params[:per] || 10)
 
     render_success(serialize_resource_list(@reports, ReportSerializer))
   end
 
   def my_complaints
     @reports = @survivor.whistleblower_reports
+                        .order(created_at: :desc)
+                        .page(params[:page] || 1)
+                        .per(params[:per] || 10)
 
     render_success(serialize_resource_list(@reports, ReportSerializer))
   end
