@@ -1,7 +1,7 @@
 <h1 align="center">I ZoomBies</h1>
 <p align="center">🧟
 Rest API that stores survivors of a zombie apocalypse and allows
-to find the survivor closest to your location.</p>
+to find the survivor closest to your location.🧟</p>
 
 <div align='center' id="technologies">
   <img src="https://img.shields.io/static/v1?label=Framework&message=Ruby-on-rails&color=7159c1&style=for-the-badge&logo=Ruby.png"/>
@@ -19,6 +19,10 @@ to find the survivor closest to your location.</p>
  <a href="#run-server">Run Server</a> • 
  <a href="https://github.com/PedroPaiao">Author</a>
 </p>
+
+<h2 id="dependencies" align="left">Dependencies</h2>
+
+ - Documentantion of endpoints available on Postman, <a href="https://documenter.getpostman.com/view/17627865/UUxwCUMk">CLICK HERE</a> to access them.
 
 <h2 id="dependencies" align="left">Dependencies</h2>
 
@@ -84,11 +88,20 @@ $ rspec
 ```bash
 $ rails s
 ```
-<h4 align="center"> 
+<h4 align="center">
 	<a href="https://www.ruby-lang.org" emoji-code="Ruby"><img class="emojidex-emoji" src="https://cdn.emojidex.com/emoji/px16/Ruby.png" emoji-code="Ruby" alt="Ruby" /></a> Yay! You’re on Rails!  <a href="https://www.ruby-lang.org" emoji-code="Ruby"><img class="emojidex-emoji" src="https://cdn.emojidex.com/emoji/px16/Ruby.png" emoji-code="Ruby" alt="Ruby" /></a>
 </h4>
 
-### Features
-<h4 align="left"> 
-	🚧  Work in progress  🚧
-</h4>
+### List of tasks you find in this repository
+- [x] Adding CI tests with rspec
+- [x] Adding internacionalization(i18n) (incomplete, only in english for now)
+- [x] CRUD of survivors
+- [x] Update of location(longitude, latitude) 
+- [x] Create report to an survivor
+- [x] Consultation of my complaints (reports)
+- [x] Consultation of complaints to me (reports)
+- [x] Mark survivor infected after three reports
+- [x] Find closest survivor by longitude
+- [x] Find closest survivor by longitude
+- [ ] Find closest survivor by inline
+
