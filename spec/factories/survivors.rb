@@ -7,5 +7,17 @@ FactoryBot.define do
     trait :main do
       location { build(:location, :zero) }
     end
+
+    trait :whistleblower_survivor do
+      location { build(:location) }
+    end
+
+    trait :reported_survivor do
+      location { build(:location) }
+    end
+
+    trait :close_infected_suvivor do
+      reported_reports { build_list(:report, 2) }
+    end
   end
 end

@@ -55,6 +55,10 @@ class CalculateDistances::Longitude < ::BaseService
       distance = calculate_opposite(longitude) if longitude.positive? && @current_longitude.negative?
       distance = calculate_negative(longitude) if longitude.negative? && @current_longitude.negative?
       distance = 0 if longitude.zero? && @current_longitude.zero?
+      distance = calculate_positive(longitude) if (longitude.zero? || @current_longitude.zero?) &&
+                                                  (@current_longitude.positive? || longitude.positive?)
+      distance = calculate_negative(longitude) if (longitude.zero? || @current_longitude.zero?) &&
+                                                  (@current_longitude.negative? || longitude.negative?)
 
       check_closest(distance, location)
     end

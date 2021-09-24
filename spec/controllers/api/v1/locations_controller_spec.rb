@@ -17,7 +17,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   end
 
   context 'GET #fetch_closest_survivor' do
-    let!(:survivor) { create(:survivor) }
+    let!(:survivor) { create(:survivor, :main) }
     let!(:survivors) { create_list(:survivor, 4) }
 
     it 'should retrive closest survivor on longitude' do
