@@ -12,8 +12,4 @@ class Api::ApiController < ::ApplicationController
   def serialize_resource_list(resources, serializer)
     JSON.parse(ActiveModelSerializers::SerializableResource.new(resources, each_serializer: serializer).to_json)
   end
-
-  def serialize_fixed_values(values)
-    values
-  end
 end

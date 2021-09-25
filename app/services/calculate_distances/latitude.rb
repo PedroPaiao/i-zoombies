@@ -1,4 +1,9 @@
 class CalculateDistances::Latitude < ::BaseService
+  include CalculateDistanceHelper
+
+  MAX_LATITUDE = 90.0
+  PLUS_SEARCH_AREA_VALUE = 10.0
+
   needs :survivor
 
   steps :fetch_survivor,
@@ -50,16 +55,7 @@ class CalculateDistances::Latitude < ::BaseService
 
     @result_array.each do |location|
       latitude = location[:latitude]
-
-      distance = calculate_positive(latitude) if latitude.positive? && @current_latitude.positive?
-      distance = calculate_opposite(latitude) if latitude.positive? && @current_latitude.negative?
-      distance = calculate_negative(latitude) if latitude.negative? && @current_latitude.negative?
-      distance = 0 if latitude.zero? && @current_latitude.zero?
-      distance = calculate_positive(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                 (@current_latitude.positive? || latitude.positive?)
-      distance = calculate_negative(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                 (@current_latitude.negative? || latitude.negative?)
-
+      distance = one_way_calculate(@current_latitude, latitude)
       check_closest(distance, location)
     end
   end
@@ -73,29 +69,5 @@ class CalculateDistances::Latitude < ::BaseService
     elsif (@result[:distance]).abs == distance.abs
       @result[:closest_array] << location
     end
-  end
-
-  def calculate_positive(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.max
-    small_value = values.min
-
-    bigger_value - small_value
-  end
-
-  def calculate_opposite(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.max
-    small_value = values.min
-
-    bigger_value - (small_value * -1)
-  end
-
-  def calculate_negative(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.min
-    small_value = values.max
-
-    (bigger_value * -1) - (small_value * -1)
   end
 end
