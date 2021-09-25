@@ -27,6 +27,8 @@ module IZoombies
     I18n.available_locales = ['pt-BR', :en, :es]
     config.i18n.default_locale = :en
 
+    config.autoload_paths += %W(#{config.root}/app/helpers)
+
     config.api_only = true
   end
 end

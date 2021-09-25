@@ -15,13 +15,13 @@ class Api::V1::SurvivorsController < Api::ApiController
   end
 
   def create
-    @survivor = Survivor.new(survivor_params)
+    @survivor = Survivor.new(create_survivor_params)
 
     handle_success_response(@survivor.save, :created)
   end
 
   def update
-    @survivor.assign_attributes(survivor_params)
+    @survivor.assign_attributes(update_suvivor_params)
 
     handle_success_response(@survivor.save)
   end
@@ -38,8 +38,12 @@ class Api::V1::SurvivorsController < Api::ApiController
     render_not_found_error unless @survivor.present?
   end
 
-  def survivor_params
+  def create_survivor_params
     params.require(:survivor).permit(:name, :gender, location_attributes: {})
+  end
+
+  def update_suvivor_params
+    create_survivor_params.except(:location_attributes)
   end
 
   def handle_success_response(response, status = nil)
@@ -50,3 +54,17 @@ class Api::V1::SurvivorsController < Api::ApiController
     end
   end
 end
+
+# def serialize_response
+#   options = { each_serializer: Closest::LocationSerializer }
+#   survivors = ActiveModelSerializers::SerializableResource.new(
+#     @service_result[:closest_array],
+#     options
+#   )
+
+#   @closest_survivor = {
+#     distance: @service_result[:distance],
+#     comparation_type: @search_by,
+#     closest: survivors
+#   }
+# end
