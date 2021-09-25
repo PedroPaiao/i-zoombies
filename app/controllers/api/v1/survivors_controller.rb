@@ -54,17 +54,3 @@ class Api::V1::SurvivorsController < Api::ApiController
     end
   end
 end
-
-# def serialize_response
-#   options = { each_serializer: Closest::LocationSerializer }
-#   survivors = ActiveModelSerializers::SerializableResource.new(
-#     @service_result[:closest_array],
-#     options
-#   )
-
-#   @closest_survivor = {
-#     distance: @service_result[:distance],
-#     comparation_type: @search_by,
-#     closest: survivors
-#   }
-# end

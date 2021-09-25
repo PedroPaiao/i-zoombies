@@ -1,11 +1,12 @@
 module CalculateResolverHelper
+  SEARCH_TYPES = {
+    longitude: 'CalculateDistances::Longitude',
+    latitude: 'CalculateDistances::Latitude',
+    inline: 'CalculateDistances::Inline'
+  }.freeze
+
   def calculate_service(search_by)
-    case search_by
-    when 'longitude'
-      'CalculateDistances::Longitude'
-    when 'latitude'
-      'CalculateDistances::Latitude'
-    end
+    SEARCH_TYPES[search_by.to_sym]
   end
 
   def serialize_calculate_response(service_result, search_by)
@@ -16,9 +17,9 @@ module CalculateResolverHelper
     )
 
     {
-      distance: service_result[:distance],
+      distance: "#{service_result[:distance].round(5)} Km",
       comparation_type: search_by,
-      closest: survivors
+      closest_locations: survivors
     }
   end
 end
