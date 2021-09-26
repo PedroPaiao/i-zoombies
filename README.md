@@ -68,7 +68,7 @@ $ cd .
 
 The tool `bundle` will install all the gems that were defined in the project's Gemset.
 ```bash
-$ gem install bundler:2.2.15
+$ gem install bundler:2.2.22
 $ bundle install
 ```
 
@@ -80,9 +80,11 @@ $ cp config/database.sample.yml config/database.yml
 ```
 
 Now, configure your database authentication.
-```bash
-Change variables `<'YOUR_USERNAME_HERE'>`,`<'YOUR_PASSWORD_HERE'>` for your own values.
 ```
+Change variables `<'YOUR_USERNAME_HERE'>`,`<'YOUR_PASSWORD_HERE'>` for your own values.
+And `<'YOUR_HOST_HERE'>` to localhost.
+```
+
 
 Good! Now let's run the tasks you configured, and they will create and populate our database instance.
 ```bash
@@ -106,8 +108,9 @@ $ cp config/database.sample.yml config/database.yml
 ```
 
 Now, configure your database authentication.
-```bash
+```
 Change variables `<'DOCKER_PG_USERNAME'>`,`<'DOCKER_PG_USERNAME'>` for your own values.
+And `<'YOUR_HOST_HERE'>` to pg.
 ```
 
 ##### obsn: If you not changed anything on docker-compose.yml, the values are `username: postgres`, `password: postgres`
