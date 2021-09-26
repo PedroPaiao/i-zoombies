@@ -1,4 +1,5 @@
 pt-BR:
+  hello: Ola mundo!
   only_you_alive: Ei, só você sobreviveu, sinto muito.. pega uma pizza!
   activerecord:
     errors:

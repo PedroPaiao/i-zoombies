@@ -1,6 +1,7 @@
 # Used es-419 code here
 
 es:
+  hello: ¡Hola mundo!
   only_you_alive: Oye, solo te sobreviven, lo siento .. Toma una pizza
   activerecord:
     errors:
@@ -220,4 +221,5 @@ es:
       long: "%A, %d de %B de %Y a las %I:%M %p"
       short: "%d de %b a las %H:%M hrs"
     pm: pm
+
 
