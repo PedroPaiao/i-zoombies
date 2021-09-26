@@ -1,0 +1,25 @@
+version: '3.9'
+x-env: &env
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+
+services:
+  izoombies:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: rails s -b 0.0.0.0 -p 3000
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+    - pg
+  pg:
+    image: postgres:12
+    environment:
+      <<: *env
+    ports:
+      - "5434:5432"
