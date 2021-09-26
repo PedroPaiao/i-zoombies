@@ -1,6 +1,6 @@
 class Survivor::ShowSerializer < ActiveModel::Serializer
   attributes :id, :name, :gender, :infected, :current_location,
-             :complaints_to_me, :my_complaints
+             :complaints_about_me, :my_complaints
 
   def current_location
     return {} unless object.location.present?
@@ -8,7 +8,7 @@ class Survivor::ShowSerializer < ActiveModel::Serializer
     LocationSerializer.new(object.location)
   end
 
-  def complaints_to_me
+  def complaints_about_me
     options = { each_serializer: Report::IndexSerializer, whistleblower_survivor: true }
     ActiveModelSerializers::SerializableResource.new(
       object.reported_reports,

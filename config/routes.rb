@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         get :retrieve_closest_survivor, on: :member, controller: :locations, action: :retrieve_closest_survivor
 
         post :reports, on: :member, controller: :reports, action: :create
-        get :complaints_to_me, on: :member, controller: :reports, action: :complaints_to_me
+        get :complaints_about_me, on: :member, controller: :reports, action: :complaints_about_me
         get :my_complaints, on: :member, controller: :reports, action: :my_complaints
       end
     end

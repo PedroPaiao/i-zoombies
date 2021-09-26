@@ -16,10 +16,18 @@ module CalculateResolverHelper
       options
     )
 
+    return funny_message if service_result[:closest_array].blank?
+
     {
       distance: "#{service_result[:distance].round(5)} Km",
       comparation_type: search_by,
       closest_locations: survivors
+    }
+  end
+
+  def funny_message
+    {
+      message: I18n.t('.only_you_alive')
     }
   end
 end

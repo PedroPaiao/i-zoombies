@@ -1,23 +1,24 @@
 class Api::V1::ReportsController < Api::ApiController
   before_action :set_survivor
+  CLASS_NAME = Survivor.name.underscore
 
   def create
     report = Report.new(formatted_params)
 
     if report.save
-      render_success(serialize_resource(report, ReportSerializer))
+      render_success(serialize_resource(report, ReportSerializer, CLASS_NAME))
     else
       render_unprocessable_entity_error(report.errors.messages)
     end
   end
 
-  def complaints_to_me
+  def complaints_about_me
     @reports = @survivor.reported_reports
                         .order(created_at: :desc)
                         .page(params[:page] || 1)
                         .per(params[:per] || 10)
 
-    render_success(serialize_resource_list(@reports, ReportSerializer))
+    render_success(serialize_resource_list(@reports, ReportSerializer, CLASS_NAME.pluralize))
   end
 
   def my_complaints
@@ -26,7 +27,7 @@ class Api::V1::ReportsController < Api::ApiController
                         .page(params[:page] || 1)
                         .per(params[:per] || 10)
 
-    render_success(serialize_resource_list(@reports, ReportSerializer))
+    render_success(serialize_resource_list(@reports, ReportSerializer, CLASS_NAME.pluralize))
   end
 
   private

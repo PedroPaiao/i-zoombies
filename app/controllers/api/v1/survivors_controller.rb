@@ -1,5 +1,6 @@
 class Api::V1::SurvivorsController < Api::ApiController
   before_action :set_survivor, only: %i[show update destroy]
+  CLASS_NAME = Survivor.name.underscore
 
   def index
     @survivors = Survivor.all
@@ -7,11 +8,11 @@ class Api::V1::SurvivorsController < Api::ApiController
                          .page(params[:page] || 1)
                          .per(params[:per] || 10)
 
-    render_success(serialize_resource_list(@survivors, Survivor::IndexSerializer))
+    render_success(serialize_resource_list(@survivors, Survivor::IndexSerializer, CLASS_NAME.pluralize))
   end
 
   def show
-    render_success(serialize_resource(@survivor, Survivor::ShowSerializer))
+    render_success(serialize_resource(@survivor, Survivor::ShowSerializer, CLASS_NAME))
   end
 
   def create
@@ -48,7 +49,7 @@ class Api::V1::SurvivorsController < Api::ApiController
 
   def handle_success_response(response, status = nil)
     if response
-      render_success(serialize_resource(@survivor, Survivor::ShowSerializer), status)
+      render_success(serialize_resource(@survivor, Survivor::ShowSerializer, CLASS_NAME), status)
     else
       render_unprocessable_entity_error(@survivor.errors.messages)
     end

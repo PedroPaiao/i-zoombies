@@ -3,6 +3,8 @@ class Api::V1::LocationsController < Api::ApiController
 
   before_action :set_survivor
 
+  CLASS_NAME = Location.name.underscore
+
   def update
     @location = @survivor.location
 
@@ -44,7 +46,7 @@ class Api::V1::LocationsController < Api::ApiController
 
   def handle_success_response(response, status = nil)
     if response
-      render_success(serialize_resource(@location, LocationSerializer), status)
+      render_success(serialize_resource(@location, LocationSerializer, CLASS_NAME), status)
     else
       render_unprocessable_entity_error(@location.errors.messages)
     end
@@ -52,7 +54,11 @@ class Api::V1::LocationsController < Api::ApiController
 
   def handle_service_response(response)
     if response.success?
-      render_success(helpers.serialize_calculate_response(response.result, location_search_params))
+      render_success(
+        only_set_meta(
+          helpers.serialize_calculate_response(response.result, location_search_params)
+        )
+      )
     else
       render_unprocessable_entity_error(response.error)
     end

@@ -22,6 +22,7 @@ class CalculateDistances::Latitude < ::BaseService
   def fetch_survivor
     @location = survivor.location
     @current_latitude = survivor.location[:latitude]
+    @result = { closest_array: [], distance: 0 }
   end
 
   def fetch_closest_north
@@ -61,9 +62,7 @@ class CalculateDistances::Latitude < ::BaseService
   end
 
   def check_closest(distance, location)
-    if @result.nil?
-      @result = { closest_array: [location], distance: distance.abs }
-    elsif (@result[:distance]).abs > distance.abs
+    if @result[:closest_array].blank? || ((@result[:distance]).abs > distance.abs)
       @result[:closest_array] = [location]
       @result[:distance] = distance.abs
     elsif (@result[:distance]).abs == distance.abs
