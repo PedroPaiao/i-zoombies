@@ -26,6 +26,9 @@ module IZoombies
 
     I18n.available_locales = ['pt-BR', :en, :es]
     config.i18n.default_locale = :en
+    
+    config.active_job.queue_name_prefix = "izoombies_#{Rails.env}"
+    config.active_job.queue_adapter = :sidekiq
 
     config.api_only = true
   end

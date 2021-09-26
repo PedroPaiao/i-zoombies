@@ -18,6 +18,6 @@ class Survivor < ApplicationRecord
   def move
     return if infected
 
-    location.shift
+    location.presence&.shift
   end
 end

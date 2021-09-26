@@ -1,0 +1,15 @@
+# config/sidekiq_scheduler.yml
+
+default: &default
+  active_mailings:
+    class: MoveAllSurvivorsJob
+    cron: '*/1 * * * *'
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

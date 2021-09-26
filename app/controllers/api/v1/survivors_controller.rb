@@ -12,7 +12,7 @@ class Api::V1::SurvivorsController < Api::ApiController
   end
 
   def move_all_survivors
-    result = Survivors::MoveAll.new.move_all
+    result = Survivors::Move.new.move_all
     if result.any?(false)
       render json: only_set_meta({ error: I18n.t('.suvivors_move.error') }), status: :unprocessable_entity
     else

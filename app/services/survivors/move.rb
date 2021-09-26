@@ -1,4 +1,4 @@
-class Survivors::MoveAll
+class Survivors::Move
   def move_all
     @survivors = Survivor.all
     Survivor.transaction do
