@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :survivors do
+        put :move_all_survivors, on: :collection, action: :move_all_survivors
+
         put :location, on: :member, controller: :locations, action: :update
         get :retrieve_closest_survivor, on: :member, controller: :locations, action: :retrieve_closest_survivor
 

@@ -99,4 +99,14 @@ RSpec.describe Api::V1::SurvivorsController, type: :controller do
       expect { survivor.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  context 'PUT #move_all_survivors' do
+    let!(:survivors) { create_list(:survivor, 10) }
+
+    it 'should move all survivors' do
+      put :move_all_survivors
+
+      expect(response).to have_http_status(200)
+    end
+  end
 end

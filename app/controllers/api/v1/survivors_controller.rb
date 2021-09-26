@@ -11,6 +11,15 @@ class Api::V1::SurvivorsController < Api::ApiController
     render_success(serialize_resource_list(@survivors, Survivor::IndexSerializer, CLASS_NAME.pluralize))
   end
 
+  def move_all_survivors
+    result = Survivors::MoveAll.new.move_all
+    if result.any?(false)
+      render json: only_set_meta({ error: I18n.t('.suvivors_move.error') }), status: :unprocessable_entity
+    else
+      render json: only_set_meta({ success: I18n.t('.suvivors_move.success') }), status: :ok
+    end
+  end
+
   def show
     render_success(serialize_resource(@survivor, Survivor::ShowSerializer, CLASS_NAME))
   end

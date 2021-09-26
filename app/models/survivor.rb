@@ -14,4 +14,10 @@ class Survivor < ApplicationRecord
   enumerize :gender, in: { male: 1, female: 2, other: 3 }
 
   accepts_nested_attributes_for :location
+
+  def move
+    return if infected
+
+    location.shift
+  end
 end
