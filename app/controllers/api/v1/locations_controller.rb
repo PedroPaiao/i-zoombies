@@ -1,4 +1,6 @@
 class Api::V1::LocationsController < Api::ApiController
+  helper CalculateResolverHelper
+
   before_action :set_survivor
 
   def update
@@ -14,12 +16,13 @@ class Api::V1::LocationsController < Api::ApiController
   end
 
   def retrieve_closest_survivor
-    service = CalculateDistance.call(survivor: @survivor, search_by: location_search_params)
+    service = helpers.calculate_service(location_search_params)
 
-    if service.success?
-      render_success(service.result)
+    if service.present?
+      response = service.constantize.call(survivor: @survivor)
+      handle_service_response(response)
     else
-      render_unprocessable_entity_error(service.error)
+      render_not_found_error
     end
   end
 
@@ -44,6 +47,14 @@ class Api::V1::LocationsController < Api::ApiController
       render_success(serialize_resource(@location, LocationSerializer), status)
     else
       render_unprocessable_entity_error(@location.errors.messages)
+    end
+  end
+
+  def handle_service_response(response)
+    if response.success?
+      render_success(helpers.serialize_calculate_response(response.result, location_search_params))
+    else
+      render_unprocessable_entity_error(response.error)
     end
   end
 end

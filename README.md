@@ -20,7 +20,7 @@ to find the survivor closest to your location.🧟</p>
  <a href="https://github.com/PedroPaiao">Author</a>
 </p>
 
-<h2 id="dependencies" align="left">Dependencies</h2>
+<h2 align="left">Postman Documentation</h2>
 
  - Documentantion of endpoints available on Postman, <a href="https://documenter.getpostman.com/view/17627865/UUxwCUMk">CLICK HERE</a> to access them.
 
