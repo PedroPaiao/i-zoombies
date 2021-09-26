@@ -2,7 +2,7 @@
 
 default: &default
   active_mailings:
-    class: MoveAllSurvivorsJob
+    class: MoveAllSurvivorsWorker
     cron: '*/1 * * * *'
 
 development:

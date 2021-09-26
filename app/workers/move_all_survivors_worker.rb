@@ -1,4 +1,4 @@
-class MoveAllSurvivorsWorker < ::ApplicationJob
+class MoveAllSurvivorsWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :default, unique_for: 30.minutes

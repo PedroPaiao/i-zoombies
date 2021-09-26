@@ -15,6 +15,8 @@ RUN mkdir $app
 WORKDIR $app
 ADD . $app
 
+RUN gem install bundler:2.2.22
+
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
