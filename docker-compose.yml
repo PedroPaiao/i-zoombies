@@ -1,5 +1,6 @@
 version: '3.9'
 x-env: &env
+  RAILS_ENV: development
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   REDIS_URL: redis://redis:6379/1
@@ -9,38 +10,46 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: rails s -b 0.0.0.0 -p 3000
+    command:  bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       <<: *env
     stdin_open: true
     tty: true
     volumes:
       - .:/app
+      - gem_cache:/usr/local/bundle/gems
     ports:
       - "3000:3000"
     depends_on:
     - pg
     - redis
   pg:
-    image: postgres:11
+    image: postgres:12.1
     environment:
       <<: *env
-    ports:
-      - "5434:5432"
     volumes:
-    - ./docker/postgres/data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
+
   redis:
     image: redis:latest
     ports:
       - "6382:6379"
   sidekiq:
     depends_on:
+      - 'izoombies'
       - 'pg'
       - 'redis'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: sidekiq -q default
     volumes:
-      - '.:/project'
-      - '/project/tmp' # don't mount tmp directory
+      - .:/app
+      - gem_cache:/usr/local/bundle/gems
     environment:
+      - RAILS_ENV=development
       - REDIS_URL=redis://redis:6379/1
+  
+volumes:
+  gem_cache:
+  db_data:
