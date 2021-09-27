@@ -1,6 +1,6 @@
 class Api::V1::ReportsController < Api::ApiController
   before_action :set_survivor
-  CLASS_NAME = Survivor.name.underscore
+  CLASS_NAME = Report.name.underscore
 
   def create
     report = Report.new(formatted_params)
@@ -18,7 +18,14 @@ class Api::V1::ReportsController < Api::ApiController
                         .page(params[:page] || 1)
                         .per(params[:per] || 10)
 
-    render_success(serialize_resource_list(@reports, ReportSerializer, CLASS_NAME.pluralize))
+    render_success(
+      serialize_resource_list(
+        @reports,
+        Report::IndexSerializer,
+        CLASS_NAME.pluralize,
+        { whistleblower_survivor: true }
+      )
+    )
   end
 
   def my_complaints
@@ -27,7 +34,14 @@ class Api::V1::ReportsController < Api::ApiController
                         .page(params[:page] || 1)
                         .per(params[:per] || 10)
 
-    render_success(serialize_resource_list(@reports, ReportSerializer, CLASS_NAME.pluralize))
+    render_success(
+      serialize_resource_list(
+        @reports,
+        Report::IndexSerializer,
+        CLASS_NAME.pluralize,
+        { reported_survivor: true }
+      )
+    )
   end
 
   private

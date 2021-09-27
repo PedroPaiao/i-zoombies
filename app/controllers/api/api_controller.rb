@@ -14,14 +14,16 @@ class Api::ApiController < ::ApplicationController
     }
   end
 
-  def serialize_resource_list(resources, serializer, class_name)
+  def serialize_resource_list(resources, serializer, class_name, optional_options = {})
     first_element = resources.first
     count = first_element.present? ? first_element.class.count : 0
+    options = { each_serializer: serializer }
+    options = options.merge(optional_options) unless optional_options.blank?
 
     {
       "#{class_name}": ActiveModelSerializers::SerializableResource.new(
         resources,
-        each_serializer: serializer
+        options
       ),
       meta: @meta.merge(count: count)
     }

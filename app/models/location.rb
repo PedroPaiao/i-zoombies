@@ -30,7 +30,7 @@ class Location < ApplicationRecord
 
   def shift
     next_lat, next_lat_dir = next_latitude(latitude, lat_direction)
-    next_long, next_long_dir = next_latitude(longitude, long_direction)
+    next_long, next_long_dir = next_longitude(longitude, long_direction)
     update(
       latitude: next_lat,
       lat_direction: next_lat_dir,
