@@ -6,7 +6,7 @@ module FetchNextMoveHelper
   def next_longitude(longitude, direction)
     next_move = calculate(longitude, direction)
 
-    if next_move > MAX_LONGTUDE
+    if next_move.abs > MAX_LONGTUDE
       direction = invert_direction(direction)
       next_move = calculate(longitude, direction)
     end
@@ -17,7 +17,7 @@ module FetchNextMoveHelper
   def next_latitude(latitude, direction)
     next_move = calculate(latitude, direction)
 
-    if next_move > MAX_LATITUDE
+    if next_move.abs > MAX_LATITUDE
       direction = invert_direction(direction)
       next_move = calculate(latitude, direction)
     end
