@@ -6,26 +6,25 @@ RUN apt-get update -qq && apt-get install -y curl \
                                              libpq-dev
 
 LABEL Name=izoombies Version=0.0.1
-
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
-
-ENV app /app
-RUN mkdir $app
-WORKDIR $app
-ADD . $app
-
-COPY Gemfile Gemfile.lock ./
-RUN bundle install
-
+ENV BUNDLER_VERSION=2.2.22
 ENV BUNDLE_PATH=/bundle \
     BUNDLE_BIN=/bundle/bin \
     GEM_HOME=/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
+ENV app /app
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
+RUN mkdir $app
+WORKDIR $app
+ADD . $app
 
+RUN gem install bundler -v 2.2.22
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle config build.nokogiri --use-system-libraries
+RUN bundle check || bundle install
+
+COPY . ./
 EXPOSE 3000
-RUN bundle install
+

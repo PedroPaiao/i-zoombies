@@ -13,6 +13,11 @@ gem 'puma', '~> 5.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Simple, efficient background processing for Ruby.
+gem 'sidekiq', '~> 6.2', '>= 6.2.2'
+# Light weight job scheduling extension for Sidekiq that adds support for queueing jobs in a recurring way.
+gem 'sidekiq-scheduler', '~> 3.1'
+
 # Utils gems
 # Allows you to generate your JSON in an object-oriented and convention-driven manner
 gem 'active_model_serializers', '~> 0.10.12'

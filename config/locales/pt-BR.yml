@@ -1,6 +1,9 @@
 pt-BR:
   hello: Ola mundo!
   only_you_alive: Ei, só você sobreviveu, sinto muito.. pega uma pizza!
+  suvivors_move:
+    success: Os sobreviventes foram movimentados com sucesso!
+    error: Algo inesperado ocorreu e não foi possivel movimentar os sobreviventes!
   activerecord:
     errors:
       messages:
