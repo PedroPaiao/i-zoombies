@@ -27,19 +27,19 @@ RSpec.describe Api::V1::ReportsController, type: :controller do
     end
   end
 
-  context 'GET #complaints_to_me' do
+  context 'GET #complaints_about_me' do
     let(:suvivor) { create(:survivor, :main) }
     let(:report) { create(:report) }
 
     it 'should array empty of survivors' do
-      get :complaints_to_me, params: { id: suvivor[:id] }
+      get :complaints_about_me, params: { id: suvivor[:id] }
 
       expect(response).to have_http_status(200)
       expect(assigns(:reports)).to be_empty
     end
 
     it 'should array empty of survivors' do
-      get :complaints_to_me, params: { id: report.reported_survivor[:id] }
+      get :complaints_about_me, params: { id: report.reported_survivor[:id] }
 
       expect(response).to have_http_status(200)
       expect(assigns(:reports)).to_not be_empty

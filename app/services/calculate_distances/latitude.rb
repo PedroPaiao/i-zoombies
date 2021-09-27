@@ -1,4 +1,9 @@
 class CalculateDistances::Latitude < ::BaseService
+  include CalculateDistanceHelper
+
+  MAX_LATITUDE = 90.0
+  PLUS_SEARCH_AREA_VALUE = 10.0
+
   needs :survivor
 
   steps :fetch_survivor,
@@ -17,6 +22,7 @@ class CalculateDistances::Latitude < ::BaseService
   def fetch_survivor
     @location = survivor.location
     @current_latitude = survivor.location[:latitude]
+    @result = { closest_array: [], distance: 0 }
   end
 
   def fetch_closest_north
@@ -24,9 +30,9 @@ class CalculateDistances::Latitude < ::BaseService
     loop do
       @closer_north_locations = Location.closest_north_lat_area(@current_latitude, search_area, @location[:id])
       break unless @closer_north_locations.blank?
-      break if search_area > 180.0
+      break if search_area > MAX_LATITUDE
 
-      search_area += 10.0
+      search_area += PLUS_SEARCH_AREA_VALUE
     end
   end
 
@@ -35,9 +41,9 @@ class CalculateDistances::Latitude < ::BaseService
     loop do
       @closer_south_locations = Location.closest_south_lat_area(@current_latitude, search_area, @location[:id])
       break unless @closer_south_locations.blank?
-      break if search_area > 180.0
+      break if search_area > MAX_LATITUDE
 
-      search_area += 10.0
+      search_area += PLUS_SEARCH_AREA_VALUE
     end
   end
 
@@ -50,52 +56,17 @@ class CalculateDistances::Latitude < ::BaseService
 
     @result_array.each do |location|
       latitude = location[:latitude]
-
-      distance = calculate_positive(latitude) if latitude.positive? && @current_latitude.positive?
-      distance = calculate_opposite(latitude) if latitude.positive? && @current_latitude.negative?
-      distance = calculate_negative(latitude) if latitude.negative? && @current_latitude.negative?
-      distance = 0 if latitude.zero? && @current_latitude.zero?
-      distance = calculate_positive(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                 (@current_latitude.positive? || latitude.positive?)
-      distance = calculate_negative(latitude) if (latitude.zero? || @current_latitude.zero?) &&
-                                                 (@current_latitude.negative? || latitude.negative?)
-
+      distance = one_way_calculate(@current_latitude, latitude)
       check_closest(distance, location)
     end
   end
 
   def check_closest(distance, location)
-    if @result.nil?
-      @result = { closest_array: [location], distance: distance.abs }
-    elsif (@result[:distance]).abs > distance.abs
+    if @result[:closest_array].blank? || ((@result[:distance]).abs > distance.abs)
       @result[:closest_array] = [location]
       @result[:distance] = distance.abs
     elsif (@result[:distance]).abs == distance.abs
       @result[:closest_array] << location
     end
-  end
-
-  def calculate_positive(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.max
-    small_value = values.min
-
-    bigger_value - small_value
-  end
-
-  def calculate_opposite(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.max
-    small_value = values.min
-
-    bigger_value - (small_value * -1)
-  end
-
-  def calculate_negative(latitude)
-    values = [@current_latitude, latitude]
-    bigger_value = values.min
-    small_value = values.max
-
-    (bigger_value * -1) - (small_value * -1)
   end
 end

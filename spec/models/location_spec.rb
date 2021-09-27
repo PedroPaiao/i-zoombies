@@ -5,7 +5,7 @@ RSpec.describe Location, type: :model do
 
   context 'Validate location relation' do
     it 'Location is valid' do
-      params = { longitude: '200', latitude: '300' }
+      params = { longitude: 180, latitude: 90 }
 
       location = survivor.build_location(params)
 
@@ -13,7 +13,15 @@ RSpec.describe Location, type: :model do
     end
 
     it 'logitude is invalid, because is required' do
-      params = { latitude: '200' }
+      params = { latitude: 200 }
+
+      location = survivor.build_location(params)
+
+      expect(location).to_not be_valid
+    end
+
+    it 'logitude is invalid, because must be less than or equal to 180.0' do
+      params = { longitude: 181, latitude: 90 }
 
       location = survivor.build_location(params)
 
@@ -23,7 +31,7 @@ RSpec.describe Location, type: :model do
 
   context 'Validate survivor gender attribute' do
     it 'Location is valid' do
-      params = { longitude: '200', latitude: '300' }
+      params = { longitude: -180, latitude: -90 }
 
       location = survivor.build_location(params)
 
@@ -31,7 +39,15 @@ RSpec.describe Location, type: :model do
     end
 
     it 'latitude is invalid, because is required' do
-      params = { longitude: '200' }
+      params = { longitude: 200 }
+
+      location = survivor.build_location(params)
+
+      expect(location).to_not be_valid
+    end
+
+    it 'latitude is invalid, because must be less than or equal to 90.0' do
+      params = { longitude: 180, latitude: 300 }
 
       location = survivor.build_location(params)
 

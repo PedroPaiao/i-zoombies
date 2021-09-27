@@ -32,6 +32,10 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       expect(response).to have_http_status(200)
     end
 
-    it 'should retrive closest survivor inline'
+    it 'should retrive closest survivor inline' do
+      get :retrieve_closest_survivor, params: { id: survivor[:id], search_by: 'inline' }
+
+      expect(response).to have_http_status(200)
+    end
   end
 end

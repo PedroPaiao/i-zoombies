@@ -1,2 +1,6 @@
 en:
-  hello: "Hello world!"
+  hello: Hello world!
+  only_you_alive: Hey, only you survived, i'm sorry.. Take a pizza
+  suvivors_move:
+    success: The survivors are successfully relocated!
+    error: Something unexpected happened and it was not possible to move the survivors!

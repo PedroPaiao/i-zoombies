@@ -1,8 +1,8 @@
-class CalculateDistances::Longitude < ::BaseService
+class CalculateDistances::Inline < ::BaseService
   include CalculateDistanceHelper
 
   MAX_LONGITUDE = 180.0
-  PLUS_SEARCH_AREA_VALUE = 10.0
+  PLUS_SEARCH_AREA_VALUE = 5.0
 
   needs :survivor
 
@@ -21,14 +21,18 @@ class CalculateDistances::Longitude < ::BaseService
 
   def fetch_survivor
     @location = survivor.location
-    @current_longitude = survivor.location[:longitude]
+    @current_location = survivor.location
     @result = { closest_array: [], distance: 0 }
   end
 
   def fetch_closest_west
-    search_area = @current_longitude
+    search_area = @current_location[:longitude]
     loop do
-      @closer_weast_locations = Location.closest_west_long_area(@current_longitude, search_area, @location[:id])
+      @closer_weast_locations = Location.closest_west_long_area(
+        @current_location[:longitude],
+        search_area,
+        @location[:id]
+      )
       break unless @closer_weast_locations.blank?
       break if search_area > MAX_LONGITUDE
 
@@ -37,9 +41,12 @@ class CalculateDistances::Longitude < ::BaseService
   end
 
   def fetch_closest_east
-    search_area = @current_longitude
+    search_area = @current_location[:longitude]
     loop do
-      @closer_east_locations = Location.closest_east_long_area(@current_longitude, search_area, @location[:id])
+      @closer_east_locations = Location.closest_east_long_area(
+        @current_location[:longitude],
+        search_area, @location[:id]
+      )
       break unless @closer_east_locations.blank?
       break if search_area > MAX_LONGITUDE
 
@@ -55,8 +62,7 @@ class CalculateDistances::Longitude < ::BaseService
     return if @result_array.blank?
 
     @result_array.each do |location|
-      longitude = location[:longitude]
-      distance = one_way_calculate(@current_longitude, longitude)
+      distance = inline_calculate(@current_location, location)
       check_closest(distance, location)
     end
   end
