@@ -96,6 +96,8 @@ $  rails db:create db:migrate db:seed
 
 <h3 id="docker-version">Docker version</h3>
 
+[Docker Installation Manual](https://docs.docker.com/compose/install/)
+
 **Build image**
 
 Inside the project folder, run the build command for docker-compose.
