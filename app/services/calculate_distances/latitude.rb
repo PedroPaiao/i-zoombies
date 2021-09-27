@@ -30,9 +30,9 @@ class CalculateDistances::Latitude < ::BaseService
     loop do
       @closer_north_locations = Location.closest_north_lat_area(@current_latitude, search_area, @location[:id])
       break unless @closer_north_locations.blank?
-      break if search_area > 180.0
+      break if search_area > MAX_LATITUDE
 
-      search_area += 10.0
+      search_area += PLUS_SEARCH_AREA_VALUE
     end
   end
 
@@ -41,9 +41,9 @@ class CalculateDistances::Latitude < ::BaseService
     loop do
       @closer_south_locations = Location.closest_south_lat_area(@current_latitude, search_area, @location[:id])
       break unless @closer_south_locations.blank?
-      break if search_area > 180.0
+      break if search_area > MAX_LATITUDE
 
-      search_area += 10.0
+      search_area += PLUS_SEARCH_AREA_VALUE
     end
   end
 

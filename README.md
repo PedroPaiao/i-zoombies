@@ -159,4 +159,5 @@ $ docker-compose run izoombies rspec
 - [x] Find closest survivor by longitude
 - [x] Find closest survivor by longitude
 - [x] Find closest survivor by inline
+- [x] Simple route to move all survivors
 

@@ -3,6 +3,9 @@
 es:
   hello: ¡Hola mundo!
   only_you_alive: Oye, solo te sobreviven, lo siento .. Toma una pizza
+  suvivors_move:
+    success: ¡Los supervivientes se trasladaron con éxito!
+    error: ¡Ocurrió algo inesperado y no fue posible mover a los supervivientes!
   activerecord:
     errors:
       messages:

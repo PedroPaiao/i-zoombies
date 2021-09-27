@@ -1,9 +1,18 @@
+require 'sidekiq/web'
+
+# Configure Sidekiq-specific session middleware
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: "_interslice_session"
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     namespace :v1 do
       resources :survivors do
+        put :move_all_survivors, on: :collection, action: :move_all_survivors
+
         put :location, on: :member, controller: :locations, action: :update
         get :retrieve_closest_survivor, on: :member, controller: :locations, action: :retrieve_closest_survivor
 
