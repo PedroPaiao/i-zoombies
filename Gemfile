@@ -62,6 +62,9 @@ group :development, :test do
   # Great Ruby debugging companion: pretty print Ruby objects to visualize their structure.
   # Supports custom object formatting via plugins
   gem 'awesome_print', '~> 1.9', '>= 1.9.2'
+  # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses,
+  # phone numbers, etc.
+  gem 'faker', '~> 2.15', '>= 2.15.1'
 end
 
 # Development helpers
@@ -70,13 +73,6 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-end
-
-# Tests Helper
-group :test do
-  # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses,
-  # phone numbers, etc.
-  gem 'faker', '~> 2.15', '>= 2.15.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
