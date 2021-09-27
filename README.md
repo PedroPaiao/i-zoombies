@@ -18,10 +18,13 @@ Table of Contents
       * [Docker Dependencies](#docker-dependencies)
    * [Technologies](#technologies)
    * [Project Setup](#como-usar)
-      * [Local version](#project-setup)
-      * [Docker version](#local-files)
+      * [Local version (Safely)](#local-version)
+      * [Docker version (Fastly)](#docker-version)
+   * [Starting server](#starting-server)
+   * [Starting sidekiq (Only the local version needs)](#starting-sidekiq)
    * [Tests](#run-tests)
    * [List of tasks you find in this repository](#features)
+   * [About the simple worker](#simple-worker)
 <!--te-->
 
 <h2 align="left">Postman Documentation</h2>
@@ -120,7 +123,7 @@ Good! Now let's run the tasks you configured, and they will create and populate 
 $  docker-compose run izoombies rails db:create db:migrate db:seed
 ```
 
-<h3 id="run-server">Starting the server</h3>
+<h3 id="starting-server">Starting server</h3>
 
 ```bash
 $ rails s
@@ -133,6 +136,14 @@ $ docker-compose up
 <h4 align="center">
 	<a href="https://www.ruby-lang.org" emoji-code="Ruby"><img class="emojidex-emoji" src="https://cdn.emojidex.com/emoji/px16/Ruby.png" emoji-code="Ruby" alt="Ruby" /></a> Yay! You’re on Rails!  <a href="https://www.ruby-lang.org" emoji-code="Ruby"><img class="emojidex-emoji" src="https://cdn.emojidex.com/emoji/px16/Ruby.png" emoji-code="Ruby" alt="Ruby" /></a>
 </h4>
+
+<h3 id="starting-sidekiq"> Starting sidekiq </h3>
+
+```bash
+$ sidekiq -q default
+```
+
+###### Note: If you are using docker, is already started
 
 <h3 id="run-tests">Automated Tests</h3>
 
@@ -158,6 +169,13 @@ $ docker-compose run izoombies rspec
 - [x] Mark survivor infected after three reports
 - [x] Find closest survivor by longitude
 - [x] Find closest survivor by longitude
-- [x] Find closest survivor by inline
+- [x] Find closest survivor by inline ([Method used to calculate](https://en.wikipedia.org/wiki/Great-circle_distance))
 - [x] Simple route to move all survivors
+- [x] Simple worker to move all survivors
 
+<h3 id="simple-worker">About the simple worker (Move all survivors)</h3>
+
+* How do works?
+  - Basically, a simple calculation is made to move the survivors up to the maximum value of logitude and latitude after reaching "the edge of the world" the direction changes and they start "walking" in the opposite direction.
+* How many times does it update?
+  - The worker is scheduled to run every 1 min, similar to a very slow radar
